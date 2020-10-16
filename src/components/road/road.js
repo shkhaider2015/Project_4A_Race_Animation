@@ -1,7 +1,6 @@
 import React from 'react'
 
-
-function Main()
+function Road()
 {
     return(
         <div>
@@ -10,4 +9,4 @@ function Main()
     )
 }
 
-export default Main;
+export default Road;
