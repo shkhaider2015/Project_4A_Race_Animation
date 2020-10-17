@@ -1,10 +1,10 @@
 import React from 'react';
-import Main from './components/main';
+import UpperPart from './components/upper/upperPart';
 
 function App() {
   return (
     <div>
-        <Main />
+        <UpperPart />
     </div>
   );
 }
