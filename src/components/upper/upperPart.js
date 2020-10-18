@@ -5,25 +5,38 @@ import TreeOne from "../../Images/tree1.png";
 
 const useStyle = makeStyles(
     (theme) =>
-    (
-        {
-            root : {
+        (
+            {
+                root: {
 
+                },
+                treeOne: {
+                    width: '2%',
+                    height: '2%',
+                },
+                Grid : {
+                    border : '1px solid black'
+                }
             }
-        }
-    )
+        )
 )
 
-function UpperPart()
-{
+function UpperPart() {
     const classes = useStyle();
 
-    return(
+    return (
         <div className={classes.root}>
 
-            <div>
-                <img src={TreeOne} />
-            </div>
+
+            <Grid container >
+
+                <Grid item className={classes.Grid}>
+                    <div>
+                        <img src={TreeOne} alt="" className={classes.treeOne} />
+                    </div>
+                </Grid>
+
+            </Grid>
 
         </div>
     )
