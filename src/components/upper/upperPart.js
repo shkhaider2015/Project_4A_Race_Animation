@@ -35,21 +35,26 @@ const useStyle = makeStyles(
 function UpperPart() {
     const classes = useStyle();
 
+    const springStyle = useSpring({
+        from : { transform: 'translate(0, 0)' },
+        to : async next => {
+            // let s = 0;
+            while(1)
+            {
+                await next({ transform: 'translate(100%, 0)' })
+                await next({ transform: 'translate(-110%, 0)' })
+                
+                //  s++;
+            }
+        },
+        
+
+    })
+
     useEffect(() => {
     }, [])
 
-    const springStyle = useSpring({
-        from : { transform: 'translateX(400px)' },
-        to :  next => {
-            while(true)
-            {
-                 next({ transform: 'translateX(-400px)' })
-                 next({ transform: 'translateX(400px)' })
-                 next({ transform: 'translateX(-400px)' })
-            }
-        }
-
-    })
+    
 
     const Container = Keyframes.Spring({
         // Single props
@@ -91,7 +96,7 @@ function UpperPart() {
                 }
             </Spring> */}
 
-            <div>
+            <animated.div style={springStyle}>
                             <img src={TreeOne} alt="" className={classes.treeOne} />
 
                             <img src={BigTree} alt="" className={classes.bigTree} />
@@ -99,7 +104,7 @@ function UpperPart() {
 
                             <img src={BigTree} alt="" className={classes.bigTree} />
 
-                    </div>
+                    </animated.div>
 
 
 
