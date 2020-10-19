@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 import { useTransition, animated } from 'react-spring'
 import TreeOne from "../../Images/tree1.png";
 import BigTree from '../../Images/tree2.png';
+import { Spring } from "react-spring/renderprops";
 
 const useStyle = makeStyles(
     (theme) =>
@@ -37,47 +38,37 @@ function UpperPart() {
     const transition = useTransition(
         {
             from: { transform: 'translateX(0px)' },
-            enter: { transform: 'translate(400px ,0)' },
-            leave: { transform: 'translate(00)' },
+            to: { transform: 'translateX(400px)' }
         }
     );
 
-    useEffect(()=>{
+    useEffect(() => {
         setState(true)
     }, [])
     console.log(transition)
     return (
         <div className={classes.root}>
 
+            <Spring
+            from={{ transform : 'translateX(10px)' }}
+            to={{ transform : 'translateX(-10px)' }}
+            >
+                {
+                    props => (
+                        <div style={props}>
+                            <img src={TreeOne} alt="" className={classes.treeOne} />
 
-            <Grid container >
+                            <img src={BigTree} alt="" className={classes.bigTree} />
+                            <img src={TreeOne} alt="" className={classes.treeOne} />
 
-                <Grid item className={classes.Grid} lg={12} sm={12}>
-                    <div>
-                        {
-                            transition.map(
-                                (obj, ind) => {
-                                    return (
-                                        <animated.div style={obj} key={ind}>
-                                            <img src={BigTree} alt="" className={classes.bigTree} />
-                                        </animated.div>
-                                    )
-                                }
-                            )
-                        }
+                            <img src={BigTree} alt="" className={classes.bigTree} />
+
+                        </div>
+                    )
+                }
+            </Spring>
 
 
-                        <img src={TreeOne} alt="" className={classes.treeOne} />
-
-                        <img src={BigTree} alt="" className={classes.bigTree} />
-                        <img src={TreeOne} alt="" className={classes.treeOne} />
-
-                        <img src={BigTree} alt="" className={classes.bigTree} />
-
-                    </div>
-                </Grid>
-
-            </Grid>
 
         </div>
     )
