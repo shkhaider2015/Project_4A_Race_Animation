@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from "@material-ui/core";
-import { useTransition, animated } from 'react-spring'
+import {Grid } from "@material-ui/core";
+import { useTransition, animated, useSpring } from 'react-spring'
 import TreeOne from "../../Images/tree1.png";
 import BigTree from '../../Images/tree2.png';
-import { Spring } from "react-spring/renderprops";
+import { Spring, Keyframes, config } from "react-spring/renderprops";
 
 const useStyle = makeStyles(
     (theme) =>
@@ -34,28 +34,51 @@ const useStyle = makeStyles(
 
 function UpperPart() {
     const classes = useStyle();
-    const [state, setState] = useState(false);
-    const transition = useTransition(
-        {
-            from: { transform: 'translateX(0px)' },
-            to: { transform: 'translateX(400px)' }
-        }
-    );
 
     useEffect(() => {
-        setState(true)
     }, [])
-    console.log(transition)
+
+    const springStyle = useSpring({
+        from : { transform: 'translateX(400px)' },
+        to :  next => {
+            while(true)
+            {
+                 next({ transform: 'translateX(-400px)' })
+                 next({ transform: 'translateX(400px)' })
+                 next({ transform: 'translateX(-400px)' })
+            }
+        }
+
+    })
+
+    const Container = Keyframes.Spring({
+        // Single props
+        show: { opacity: 1 },
+        // Chained animations (arrays)
+        showAndHide: [{ opacity: 1 }, { opacity: 0 }],
+        // Functions with side-effects with access to component props
+        wiggle: async (next, cancel, ownProps) => {
+            await next({ x: 100, config: config.wobbly })
+            await next({ x: 0, config: config.gentle })
+        }
+    })
+
+
     return (
         <div className={classes.root}>
 
-            <Spring
-            from={{ transform : 'translateX(10px)' }}
-            to={{ transform : 'translateX(-10px)' }}
+            {/* <Container state="showAndHide">
+                {styles => <div style={styles}>Hello</div>}
+                </Container> */}
+
+
+            {/* <Spring
+                from={{ transform: 'translateX(400px)' }}
+                to={{ transform: 'translateX(-400px)' }}
             >
                 {
                     props => (
-                        <div style={props}>
+                        <div style={springStyle}>
                             <img src={TreeOne} alt="" className={classes.treeOne} />
 
                             <img src={BigTree} alt="" className={classes.bigTree} />
@@ -66,7 +89,17 @@ function UpperPart() {
                         </div>
                     )
                 }
-            </Spring>
+            </Spring> */}
+
+            <div>
+                            <img src={TreeOne} alt="" className={classes.treeOne} />
+
+                            <img src={BigTree} alt="" className={classes.bigTree} />
+                            <img src={TreeOne} alt="" className={classes.treeOne} />
+
+                            <img src={BigTree} alt="" className={classes.bigTree} />
+
+                    </div>
 
 
 
