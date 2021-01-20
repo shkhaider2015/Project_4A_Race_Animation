@@ -1,10 +1,26 @@
 import React from 'react';
-import UpperPart from './components/upper/upperPart';
+import CAR from "./Images/car.png";
+import "./App.css"
 
 function App() {
   return (
-    <div>
-        <UpperPart />
+    <div className="root" >
+        <div className="smallTree" >
+
+        </div>
+        <div className="middleTree" >
+
+        </div>
+        <div className="largeTree" >
+
+        </div>
+        <div className="road" > 
+            
+        </div>
+        <img alt="car" src={CAR} className="myCar" />
+        <div className="grass" >
+
+        </div>
     </div>
   );
 }
